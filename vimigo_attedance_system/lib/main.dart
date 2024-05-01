@@ -56,6 +56,27 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: Column(
             children: [
+              ToggleButtons(
+                isSelected: [
+                  _showCheckInDetail,
+                  !_showCheckInDetail
+                ], // Ensure correct length
+                onPressed: (int index) {
+                  setState(() {
+                    _showCheckInDetail = !_showCheckInDetail;
+                  });
+                },
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Check-in Detail'),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('Time Ago'),
+                  ),
+                ],
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: userData.length,
@@ -83,27 +104,6 @@ class _MyAppState extends State<MyApp> {
                     );
                   },
                 ),
-              ),
-              ToggleButtons(
-                isSelected: [
-                  _showCheckInDetail,
-                  !_showCheckInDetail
-                ], // Ensure correct length
-                onPressed: (int index) {
-                  setState(() {
-                    _showCheckInDetail = !_showCheckInDetail;
-                  });
-                },
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Check-in Detail'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('Time Ago'),
-                  ),
-                ],
               ),
             ],
           ),
