@@ -1,8 +1,10 @@
+import 'package:intl/intl.dart';
+
 class UserDataModel {
   final String user;
   final String phone;
   final DateTime checkIn;
-  final String timeAgo;
+  String timeAgo;
 
   UserDataModel({
     required this.user,
@@ -13,11 +15,10 @@ class UserDataModel {
 
   factory UserDataModel.fromJson(Map<String, dynamic> json) {
     final String? checkInString = json['check-in'];
-    DateTime checkInTime = DateTime.now(); // Default value for check-in time
+    DateTime checkInTime = DateTime.now();
 
     if (checkInString != null) {
       try {
-        // Custom parsing of the date/time string
         final parts = checkInString.split(' ');
         final datePart = parts[0].split('-');
         final timePart = parts[1].split(':');
@@ -29,7 +30,6 @@ class UserDataModel {
         final second = int.parse(timePart[2]);
         checkInTime = DateTime(year, month, day, hour, minute, second);
       } catch (e) {
-        // Handle parsing errors gracefully
         print('Error parsing check-in time: $e');
       }
     } else {
@@ -46,6 +46,14 @@ class UserDataModel {
       checkIn: checkInTime,
       timeAgo: formattedTimeAgo,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user': user,
+      'phone': phone,
+      'check-in': DateFormat('yyyy-MM-dd HH:mm:ss').format(checkIn),
+    };
   }
 
   static String _formatTimeDifference(Duration difference) {

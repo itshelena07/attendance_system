@@ -32,12 +32,10 @@ class _MyAppState extends State<MyApp> {
       List<UserDataModel> tempUserData =
           list.map((e) => UserDataModel.fromJson(e)).toList();
 
-      // Sort the userData list based on check-in time in descending order
+      // Sort userData list based on check-in time in descending order
       tempUserData.sort((a, b) => b.checkIn.compareTo(a.checkIn));
 
       // Update the state with the loaded and sorted user data
-
-      // Update the state with the loaded user data
       setState(() {
         userData = tempUserData;
       });
@@ -48,6 +46,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    userData.sort((a, b) => b.checkIn.compareTo(a.checkIn));
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
